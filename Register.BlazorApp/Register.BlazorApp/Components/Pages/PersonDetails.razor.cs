@@ -29,7 +29,7 @@ public partial class PersonDetails
         ActivityLogs = await ActivityLogDataService!.GetPersonActivityLogsAsync(PersonId);
     }
 
-    public async ValueTask<ItemsProviderResult<ActivityLog>> LoadTimeRegistrations(ItemsProviderRequest request)
+    public async ValueTask<ItemsProviderResult<ActivityLog>> LoadActivityLogs(ItemsProviderRequest request)
     {
         int totalNumberOfTimeRegistrations = await ActivityLogDataService!.GetPersonActivityLogsCountAsync(PersonId);
 
