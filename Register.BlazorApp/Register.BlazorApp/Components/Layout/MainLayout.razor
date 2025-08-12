@@ -1,6 +1,16 @@
 ﻿@inherits LayoutComponentBase
+<nav aria-label="Navigation header">
+    <a href="/">
+        <img src="images/logo.png" width="51" height="47" alt="Logo">
+    </a>
+    <h3>Register - Blazor App </h3>
+    <InboxCounter></InboxCounter>
+</nav>
 
-@Body
+<div>
+    <NavMenu></NavMenu>
+    @Body
+</div>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
