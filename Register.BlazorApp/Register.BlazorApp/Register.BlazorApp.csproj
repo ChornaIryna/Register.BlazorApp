@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Register.Shared\Register.Shared.csproj" />
     <ProjectReference Include="..\Register.BlazorApp.Client\Register.BlazorApp.Client.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.18" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.18" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.18" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.18" />

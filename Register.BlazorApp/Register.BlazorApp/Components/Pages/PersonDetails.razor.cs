@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.AspNetCore.Components.QuickGrid;
 using Register.BlazorApp.Contracts.Services;
 using Register.Shared.Domain;
 
@@ -16,28 +16,17 @@ public partial class PersonDetails
     [Inject]
     public IActivityLogDataService? ActivityLogDataService { get; set; }
 
-    public List<ActivityLog> ActivityLogs { get; set; } = [];
-
     public Person Person { get; set; } = new Person();
 
-    private float itemHeight = 50;
-
+    protected IQueryable<ActivityLog>? itemsQueryable;
+    protected int queryableCount = 0;
+    public PaginationState pagination = new() { ItemsPerPage = 10 };
     protected override async Task OnInitializedAsync()
     {
         Person = await PersonDataService.GetPersonByIdAsync(PersonId);
 
-        ActivityLogs = await ActivityLogDataService!.GetPersonActivityLogsAsync(PersonId);
+        itemsQueryable = (await ActivityLogDataService!.GetPersonActivityLogsAsync(PersonId)).AsQueryable();
+        queryableCount = itemsQueryable.Count();
     }
-
-    public async ValueTask<ItemsProviderResult<ActivityLog>> LoadTimeRegistrations(ItemsProviderRequest request)
-    {
-        int totalNumberOfTimeRegistrations = await ActivityLogDataService!.GetPersonActivityLogsCountAsync(PersonId);
-
-        var numberOfTimeRegistrations = Math.Min(request.Count, totalNumberOfTimeRegistrations - request.StartIndex);
-        var listItems = await ActivityLogDataService.GetPagedPersonActivityLogsAsync(PersonId, numberOfTimeRegistrations, request.StartIndex);
-
-        return new ItemsProviderResult<ActivityLog>(listItems, totalNumberOfTimeRegistrations);
-    }
-
     private void ChangeHolidayState() => Person.IsOnHoliday = !Person.IsOnHoliday;
 }
