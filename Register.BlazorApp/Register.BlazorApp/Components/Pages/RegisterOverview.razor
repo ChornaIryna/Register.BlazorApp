@@ -1,0 +1,35 @@
+﻿@page "/registeroverview"
+@rendermode InteractiveAuto
+
+<h1>Registered persons</h1>
+
+@if(Persons == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Person ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var person in Persons)
+            {
+                <tr>
+                    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{person.PersonId}-small.jpg")" /></td>
+                    <td>@person.PersonId</td>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td><a href="@($"persondetail/{person.PersonId}")">Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

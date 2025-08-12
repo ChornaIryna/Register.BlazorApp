@@ -1,0 +1,103 @@
+﻿@page "/persondetail/{PersonId:int}"
+
+@rendermode InteractiveServer
+
+
+<section>
+    <h1>Details for @Person.FirstName @Person.LastName</h1>
+    <br />
+        <div>
+            <img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Person.PersonId}.jpg")" />
+            @if (Person.IsOnHoliday)
+            {
+                <span>On holiday</span>
+            }
+            else
+            {
+                <span>Working</span>
+            }
+            <div>
+                <button type="button"@onclick="@ChangeHolidayState">Change holiday state</button>
+            </div>
+        </div>
+        <label>Person ID</label>
+        <label type="text">@Person.PersonId</label>
+        <br />
+        <label>First name</label>
+        <label type="text" readonly>@Person.FirstName</label>
+        <br />
+        <label>Last name</label>
+        <label type="text" readonly >@Person.LastName</label>
+        <br />
+        <label >Birthdate</label>
+        <label type="text" readonly >@Person.BirthDate?.ToShortDateString()</label>
+        <br />                      
+        <label >Email</label>
+        <label type="text" readonly >@Person.Email</label>
+        <br />
+        <label >Street</label>
+        <label type="text" readonly >@Person.Street</label>
+        <br />
+        <label >Zip</label>
+        <label type="text" readonly >@Person.Zip</label>
+        <br />
+        <label >City</label>
+        <label type="text" readonly >@Person.City</label>
+        <br />
+        <label >Phone number</label>
+        <label type="text" readonly >@Person.PhoneNumber</label>
+        <br />
+        <label >Gender</label>
+        <label type="text" readonly >@Person.Gender</label>
+        <br />
+        <label >Smoker</label>
+        @if (Person.Smoker)
+        {
+            <label type="text" readonly >Yes</label>
+        }
+        else
+        {
+            <label type="text" readonly >No</label>
+        }
+        <br />
+        <label >Joined us</label>
+        <label type="text" readonly >@Person.JoinedDate?.ToShortDateString()</label>
+        <br />
+        <label >Left us</label>
+        <label type="text" readonly >@Person.ExitDate?.ToShortDateString()</label>
+
+
+    <h2>Activities</h2>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Start time</th>
+                    <th>End time</th>
+                    <th>Task</th>
+                </tr>
+            </thead>
+            <tbody>
+                <Virtualize ItemsProvider="LoadTimeRegistrations" ItemSize="itemHeight">
+                    <ItemContent>
+                        <tr>
+                            <td>@context.ActivityLogId</td>
+                            <td>@context.StartTime</td>
+                            <td>@context.EndTime</td>
+                            <td>@context.PerformedActivityDescription</td>
+                        </tr>
+                    </ItemContent>
+                    <Placeholder>
+                        <tr>
+                            <td>Loading...</td>
+                            <td>Loading...</td>
+                            <td>Loading...</td>
+                            <td>Loading...</td>
+                        </tr>
+                    </Placeholder>
+                </Virtualize>
+            </tbody>
+        </table>
+    </div>
+</section>
